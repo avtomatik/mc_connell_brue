@@ -31,14 +31,10 @@ def calculate_power_function_fit_params_a(df: DataFrame, params: tuple[float]) -
     print(f'Model Parameter: Alpha = {params[2]:.4f};')
     print(f'Estimator Result: Mean Value: {df.iloc[:, 2].mean():,.4f};')
     print(
-        'Estimator Result: Mean Squared Deviation, MSD: {:,.4f};'.format(
-            mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])
-        )
+        f'Estimator Result: Mean Squared Deviation, MSD: {mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]):,.4f};'
     )
     print(
-        'Estimator Result: Root-Mean-Square Deviation, RMSD: {:,.4f}.'.format(
-            np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]))
-        )
+        f'Estimator Result: Root-Mean-Square Deviation, RMSD: {np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])):,.4f}.'
     )
 
 
@@ -74,14 +70,10 @@ def calculate_power_function_fit_params_b(df: DataFrame, params: tuple[float]) -
     )
     print(f'Estimator Result: Mean Value: {df.iloc[:, 1].mean():,.4f};')
     print(
-        'Estimator Result: Mean Squared Deviation, MSD: {:,.4f};'.format(
-            mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])
-        )
+        f'Estimator Result: Mean Squared Deviation, MSD: {mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]):,.4f};'
     )
     print(
-        'Estimator Result: Root-Mean-Square Deviation, RMSD: {:,.4f}.'.format(
-            np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]))
-        )
+        f'Estimator Result: Root-Mean-Square Deviation, RMSD: {np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])):,.4f}.'
     )
 
 
@@ -101,8 +93,10 @@ def calculate_power_function_fit_params_c(df: DataFrame, params: tuple[float]) -
     -------
     None.
     """
-    _alpha = (np.log(params[3])-np.log(params[2])) / \
-        (np.log(params[0])-np.log(params[1]))
+    _alpha = np.divide(
+        np.subtract(*map(np.log, params[::-1][:2])),
+        np.subtract(*map(np.log, params[:2]))
+    )
     # =========================================================================
     # '{RESULT}{Hat}{Y} = Y_1*(X_1/{X})**Alpha'
     # =========================================================================
@@ -115,12 +109,8 @@ def calculate_power_function_fit_params_c(df: DataFrame, params: tuple[float]) -
     print(f'Model Parameter: Alpha: = LN(Y_2/Y_1)/LN(X_1/X_2) = {_alpha:.4f};')
     print(f'Estimator Result: Mean Value: {df.iloc[:, 1].mean():,.4f};')
     print(
-        'Estimator Result: Mean Squared Deviation, MSD: {:,.4f};'.format(
-            mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])
-        )
+        f'Estimator Result: Mean Squared Deviation, MSD: {mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]):,.4f};'
     )
     print(
-        'Estimator Result: Root-Mean-Square Deviation, RMSD: {:,.4f}.'.format(
-            np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2]))
-        )
+        f'Estimator Result: Root-Mean-Square Deviation, RMSD: {np.sqrt(mean_squared_error(df.iloc[:, 1], df.iloc[:, 2])):,.4f}.'
     )

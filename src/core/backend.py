@@ -1,18 +1,17 @@
 from functools import cache
 
 import pandas as pd
+from core.classes import Token
 from pandas import DataFrame
-
-from constants import MAP_READ_USA_HIST
 
 
 @cache
-def read_usa_hist(filepath_or_buffer: str) -> DataFrame:
+def read_usa_hist(token: Token) -> DataFrame:
     """
     Retrieves Data from Enumerated Historical Datasets
     Parameters
     ----------
-    filepath_or_buffer : str
+    token : Token
 
     Returns
     -------
@@ -23,15 +22,8 @@ def read_usa_hist(filepath_or_buffer: str) -> DataFrame:
         df.iloc[:, 1]      Values
         ================== =================================
     """
-    kwargs = {
-        'filepath_or_buffer': filepath_or_buffer,
-        'header': 0,
-        'names': tuple(MAP_READ_USA_HIST.get(filepath_or_buffer).keys()),
-        'index_col': 1,
-        'skiprows': (0, 4)[filepath_or_buffer == 'dataset_usa_brown.zip'],
-        'usecols': tuple(MAP_READ_USA_HIST.get(filepath_or_buffer).values()),
-    }
-    return pd.read_csv(**kwargs)
+
+    return pd.read_csv(**token.get_kwargs())
 
 
 def pull_by_series_id(df: DataFrame, series_id: str) -> DataFrame:
@@ -62,7 +54,7 @@ def pull_by_series_id(df: DataFrame, series_id: str) -> DataFrame:
     )
 
 
-def stockpile_usa_hist(series_ids: dict[str, str]) -> DataFrame:
+def stockpile_usa_hist(series_ids: dict[str, Token]) -> DataFrame:
     """
     Parameters
     ----------
@@ -79,7 +71,7 @@ def stockpile_usa_hist(series_ids: dict[str, str]) -> DataFrame:
     """
     return pd.concat(
         map(
-            lambda _: read_usa_hist(_[1]).pipe(pull_by_series_id, _[0]),
+            lambda _: read_usa_hist(_[-1]).pipe(pull_by_series_id, _[0]),
             series_ids.items()
         ),
         axis=1,

@@ -2,11 +2,10 @@ from functools import cache
 
 import pandas as pd
 from core.classes import Token
-from pandas import DataFrame
 
 
 @cache
-def read_usa_hist(token: Token) -> DataFrame:
+def read_usa_hist(token: Token) -> pd.DataFrame:
     """
     Retrieves Data from Enumerated Historical Datasets
     Parameters
@@ -15,7 +14,7 @@ def read_usa_hist(token: Token) -> DataFrame:
 
     Returns
     -------
-    DataFrame
+    pd.DataFrame
         ================== =================================
         df.index           Period
         df.iloc[:, 0]      Series IDs
@@ -26,13 +25,13 @@ def read_usa_hist(token: Token) -> DataFrame:
     return pd.read_csv(**token.get_kwargs())
 
 
-def pull_by_series_id(df: DataFrame, series_id: str) -> DataFrame:
+def pull_by_series_id(df: pd.DataFrame, series_id: str) -> pd.DataFrame:
     """
 
 
     Parameters
     ----------
-    df : DataFrame
+    df : pd.DataFrame
         ================== =================================
         df.index           Period
         df.iloc[:, 0]      Series IDs
@@ -42,7 +41,7 @@ def pull_by_series_id(df: DataFrame, series_id: str) -> DataFrame:
 
     Returns
     -------
-    DataFrame
+    pd.DataFrame
         ================== =================================
         df.index           Period
         df.iloc[:, 0]      Series
@@ -50,11 +49,11 @@ def pull_by_series_id(df: DataFrame, series_id: str) -> DataFrame:
     """
     assert df.shape[1] == 2
     return df[df.iloc[:, 0] == series_id].iloc[:, [1]].rename(
-        columns={"value": series_id}
+        columns={'value': series_id}
     )
 
 
-def stockpile_usa_hist(series_ids: dict[str, Token]) -> DataFrame:
+def stockpile_usa_hist(series_ids: dict[str, Token]) -> pd.DataFrame:
     """
     Parameters
     ----------
@@ -62,7 +61,7 @@ def stockpile_usa_hist(series_ids: dict[str, Token]) -> DataFrame:
         DESCRIPTION.
     Returns
     -------
-    DataFrame
+    pd.DataFrame
         ================== =================================
         df.index           Period
         ...                ...

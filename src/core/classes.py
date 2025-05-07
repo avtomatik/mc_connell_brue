@@ -7,8 +7,9 @@ Created on Sun Jul 23 18:33:38 2023
 """
 
 from enum import Enum
-from pathlib import Path
 from typing import Any
+
+from core.config import DATA_DIR
 
 
 class Token(str, Enum):
@@ -31,7 +32,7 @@ class Token(str, Enum):
         NAMES = ['series_id', 'period', 'value']
 
         return {
-            'filepath_or_buffer': Path(__file__).parent.parent.parent.joinpath('data').joinpath(self.value),
+            'filepath_or_buffer': DATA_DIR.joinpath(self.value),
             'header': 0,
             'names': NAMES,
             'index_col': 1,

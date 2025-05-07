@@ -1,13 +1,13 @@
 import numpy as np
-from pandas import DataFrame
+import pandas as pd
 from sklearn.metrics import mean_squared_error
 
 
-def calculate_power_function_fit_params_a(df: DataFrame, params: tuple[float]) -> None:
+def calculate_power_function_fit_params_a(df: pd.DataFrame, params: tuple[float]) -> None:
     """
     Parameters
     ----------
-    df : DataFrame
+    df : pd.DataFrame
     ================== =================================
     df.index           Regressor: = Period
     df.iloc[:, 0]      Regressand
@@ -38,11 +38,11 @@ def calculate_power_function_fit_params_a(df: DataFrame, params: tuple[float]) -
     )
 
 
-def calculate_power_function_fit_params_b(df: DataFrame, params: tuple[float]) -> None:
+def calculate_power_function_fit_params_b(df: pd.DataFrame, params: tuple[float]) -> None:
     """
     Parameters
     ----------
-    df : DataFrame
+    df : pd.DataFrame
         ================== =================================
         df.index           Period
         df.iloc[:, 0]      Regressor
@@ -77,11 +77,11 @@ def calculate_power_function_fit_params_b(df: DataFrame, params: tuple[float]) -
     )
 
 
-def calculate_power_function_fit_params_c(df: DataFrame, params: tuple[float]) -> None:
+def calculate_power_function_fit_params_c(df: pd.DataFrame, params: tuple[float]) -> None:
     """
     Parameters
     ----------
-    df : DataFrame
+    df : pd.DataFrame
         ================== =================================
         df.index           Period
         df.iloc[:, 0]      Regressor
